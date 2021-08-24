@@ -54,7 +54,7 @@ pipeline {
     }
     stage('DEPLOY CI') {
       when {
-        branch 'dev'
+        branch 'develop'
       }
       steps {
         container('toolbox') {
@@ -70,7 +70,7 @@ pipeline {
     }
     stage('DEPLOY QA') {
       when {
-        branch 'prod'
+        branch 'master'
       }
       steps {
         container('toolbox') {
