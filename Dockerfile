@@ -1,10 +1,10 @@
-FROM openjdk:16-alpine3.13 as base
+FROM eclipse-temurin:17-jdk-jammy as base
 
 WORKDIR /app
 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
+RUN ./mvnw dependency:resolve
 COPY src ./src
 
 FROM base as test
@@ -13,7 +13,7 @@ RUN ["./mvnw", "test"]
 FROM base as build
 RUN ./mvnw package
 
-FROM openjdk:11-jre-slim as production
+FROM eclipse-temurin:17-jre-jammy as production
 ENV PORT="8080"
 EXPOSE ${PORT}
 
